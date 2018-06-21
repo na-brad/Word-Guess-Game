@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>Hangman</h1>
+
+    <p id="underscore">f</p>
+
+    <script>
+        var guessMe = "";
+        var guessedLetters = [];
+        var tvShows = ["prison break", "breaking bad", "game of thrones"];
+        var selected = tvShows[Math.floor(Math.random() * tvShows.length)];
+        console.log(selected);
+
+        // var selectedLetters = selected.
+        var livesRemaining = 6;
+
+        // document.querySelector("#game").innerHTML = html;
+        // document.querySelector("#game").innerHTML = html;
+        console.log(guessMe);
+
+        function convert() {
+            for (i = 0; i < selected.length; i++) {
+                if (selected.charAt(i) != " ") {
+                    guessMe += "_";
+                }
+                else if (selected.charAt(i) == " ") {
+                    guessMe += " ";
+                }
+            }
+            //put in code here to display underscores
+        }
+        convert();
+        document.querySelector("#underscore").innerHTML = guessMe;
+        String.prototype.replaceAt = function (replacement, index) {
+                        return this.substr(0, index) + replacement + this.substr(index + 1);
+                    }
+
+        document.onkeyup = function (play) {
+            var key = event.key;
+            var keyString = String(key);
+            console.log(key);
+            console.log(selected.indexOf(keyString));
+            for (j = 0; j < selected.length; j++) {
+                if (selected.indexOf(key, j) == j) {
+                    guessMe = guessMe.replaceAt(key, j);
+                    document.querySelector("#underscore").innerHTML = guessMe;
+                    
+                }
+                // else {
+                //     guessedLetters.push(key);
+                //     livesRemaining--;
+                //     if (livesRemaining == 0){
+                //         //display game over
+                //     }
+            }
+
+        }
+
+
+
+
+
+
+
+        // String.prototype.replaceAt = function (index, char) {
+        //     var a = this.split("");
+        //     a[index] = char;
+        //     return a.join("");
+        // }
+
+        // guessMe = guessMe.replaceAt(j, key);
+
+        // document.querySelector("#underscore").innerHTML = guessMe;
+
+    </script>
+</body>
+
+
+
+
+
+</html>
