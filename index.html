@@ -11,13 +11,16 @@
 <body>
     <h1>Hangman</h1>
 
-    <p id="underscore">f</p>
+    <p id="underscore"></p>
+    <p id="guesses"></p>
 
     <script>
         var guessMe = "";
-        var guessedLetters = [];
+        var guessedLetters = "";
+        var lettersOnly = ["a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
         var tvShows = ["prison break", "breaking bad", "game of thrones"];
         var selected = tvShows[Math.floor(Math.random() * tvShows.length)];
+        
         console.log(selected);
 
         // var selectedLetters = selected.
@@ -40,9 +43,13 @@
         }
         convert();
         document.querySelector("#underscore").innerHTML = guessMe;
+        
         String.prototype.replaceAt = function (replacement, index) {
+            // if (index == this.length){return this.substr(0, index) + replacement;}
+            // else{
                         return this.substr(0, index) + replacement + this.substr(index + 1);
                     }
+                
 
         document.onkeyup = function (play) {
             var key = event.key;
@@ -61,9 +68,24 @@
                 //     if (livesRemaining == 0){
                 //         //display game over
                 //     }
+                
+                
+                }
+             if (selected.indexOf(key) == -1 && lettersOnly.indexOf(key) != -1 && guessedLetters.indexOf(key) == -1){
+                    guessedLetters = guessedLetters + keyString + " ";
+                    document.querySelector("#guesses").innerHTML = guessedLetters;
             }
+            console.log(guessedLetters.length);
+            if (guessedLetters.length >= 12){
 
+            }
         }
+
+        
+
+        
+
+
 
 
 
