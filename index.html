@@ -4,104 +4,141 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Hangman Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
 <body>
-    <h1>Hangman</h1>
+    <div class="container">
+        <div class="row">
+            <div id="bg" class="col-lg-1">
 
-    <p id="underscore"></p>
-    <p id="guesses"></p>
+            </div>
+            <div id="content" class="col-lg-10">
+                    <div class="row">
+                            <h1>NETFLIX</h1>
+                        </div>
+                        <div class="row">
+                            <h4>ORIGINALS</h4>
+                        </div>
+                        <div class="row">
+                                <h2 id="gameOver">Game over!</h2>
+                            </div>
+                            <div class="row">
+                                <button id="reset">Play again?</button>
+                            </div>
+                        <div class="row">
+                                <img src="" alt="man" id="hangman" />
+                        </div>
+                        <div class="row">
+                            <p id="underscore"></p>
+                        </div>
+                        <div class="row">
+                            <p id="guesses"></p>
+                        </div>
+                        <div class="row">
+                            <p id="lives"></p>
+                        </div>
+                        <div class="row">
+                            <h3 id="score"></h3>
+                        </div>
+                        
+            </div>
+            <div id="bg" class="col-lg-1">
+
+            </div>
+        </div>
+    </div>
+
 
     <script>
-        var guessMe = "";
-        var guessedLetters = "";
-        var lettersOnly = ["a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-        var tvShows = ["prison break", "breaking bad", "game of thrones"];
-        var selected = tvShows[Math.floor(Math.random() * tvShows.length)];
-        
-        console.log(selected);
 
-        // var selectedLetters = selected.
-        var livesRemaining = 6;
+        var lettersOnly = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+        var tvShows = ["bojack horseman", "stranger things", "orange is the new black", "master of none", "daredevil", "fuller house", "narcos", "bloodline", "house of cards", "the punisher", "altered carbon", "grace and frankie", "cooked", "black mirror", "jessica jones"];
+        var score = 0;
+        var imgArr = ["assets/images/0.jpg", "assets/images/1.jpg", "assets/images/2.jpg", "assets/images/3.jpg", "assets/images/4.jpg", "assets/images/5.jpg", "assets/images/6.png"];
 
-        // document.querySelector("#game").innerHTML = html;
-        // document.querySelector("#game").innerHTML = html;
-        console.log(guessMe);
 
-        function convert() {
-            for (i = 0; i < selected.length; i++) {
-                if (selected.charAt(i) != " ") {
-                    guessMe += "_";
-                }
-                else if (selected.charAt(i) == " ") {
-                    guessMe += " ";
-                }
-            }
-            //put in code here to display underscores
-        }
-        convert();
-        document.querySelector("#underscore").innerHTML = guessMe;
-        
-        String.prototype.replaceAt = function (replacement, index) {
-            // if (index == this.length){return this.substr(0, index) + replacement;}
-            // else{
-                        return this.substr(0, index) + replacement + this.substr(index + 1);
+        start();
+        function start() {
+            var guessMe = "";
+            var guessedLetters = "";
+            var selected = tvShows[Math.floor(Math.random() * tvShows.length)].toUpperCase();
+            var livesRemaining = 6;
+            document.getElementById("hangman").src = imgArr[livesRemaining];
+            document.getElementById("gameOver").style.display = "none";
+            document.getElementById("reset").style.display = "none";
+            document.querySelector("#score").innerHTML = "# of Wins: " + score;
+
+
+            function convert() {
+                for (i = 0; i < selected.length; i++) {
+                    if (selected.charAt(i) != " ") {
+                        guessMe += "_";
                     }
-                
+                    else if (selected.charAt(i) == " ") {
+                        guessMe += " ";
+                    }
+                }
+            }
+            convert();
+            document.querySelector("#underscore").innerHTML = guessMe;
+            document.querySelector("#guesses").innerHTML = guessedLetters;
+            document.querySelector("#lives").innerHTML = "Chances remaining: " + livesRemaining;
 
-        document.onkeyup = function (play) {
-            var key = event.key;
-            var keyString = String(key);
-            console.log(key);
-            console.log(selected.indexOf(keyString));
-            for (j = 0; j < selected.length; j++) {
-                if (selected.indexOf(key, j) == j) {
-                    guessMe = guessMe.replaceAt(key, j);
-                    document.querySelector("#underscore").innerHTML = guessMe;
-                    
+            String.prototype.replaceAt = function (replacement, index) {
+
+                return this.substr(0, index) + replacement + this.substr(index + 1);
+            }
+            document.onkeyup = function (play) {
+                var key = event.key.toUpperCase();
+                var keyString = String(key);
+                console.log(key);
+                console.log(selected.indexOf(keyString));
+                for (j = 0; j < selected.length; j++) {
+                    if (selected.indexOf(key, j) == j) {
+                        guessMe = guessMe.replaceAt(key, j);
+                        document.querySelector("#underscore").innerHTML = guessMe;
+
+                    }
+
+
                 }
-                // else {
-                //     guessedLetters.push(key);
-                //     livesRemaining--;
-                //     if (livesRemaining == 0){
-                //         //display game over
-                //     }
-                
-                
-                }
-             if (selected.indexOf(key) == -1 && lettersOnly.indexOf(key) != -1 && guessedLetters.indexOf(key) == -1){
+                if (selected.indexOf(key) == -1 && lettersOnly.indexOf(key) != -1 && guessedLetters.indexOf(key) == -1) {
                     guessedLetters = guessedLetters + keyString + " ";
+                    livesRemaining--;
+                    if (livesRemaining < 0) {
+                        livesRemaining = 0;
+                    }
                     document.querySelector("#guesses").innerHTML = guessedLetters;
-            }
-            console.log(guessedLetters.length);
-            if (guessedLetters.length >= 12){
+                    document.querySelector("#lives").innerHTML = "Chances remaining: " + livesRemaining;
 
+                }
+                console.log(guessedLetters.length);
+                if (guessedLetters.length >= 12) {
+                    document.getElementById("gameOver").style.display = "inline";
+                    document.getElementById("reset").style.display = "inline";
+                    document.querySelector("#underscore").innerHTML = selected;
+
+
+                }
+                if (guessMe == selected) {
+                    score++;
+                    livesRemaining = 6;
+                    start();
+                }
+                document.getElementById("hangman").src = imgArr[livesRemaining];
             }
+
+        }
+        document.getElementById("reset").onclick = function () {
+            location.reload();
         }
 
-        
-
-        
 
 
-
-
-
-
-
-
-
-        // String.prototype.replaceAt = function (index, char) {
-        //     var a = this.split("");
-        //     a[index] = char;
-        //     return a.join("");
-        // }
-
-        // guessMe = guessMe.replaceAt(j, key);
-
-        // document.querySelector("#underscore").innerHTML = guessMe;
 
     </script>
 </body>

@@ -1,0 +1,60 @@
+h1,h4,img,#underscore,#guesses,#lives,#score,#gameOver,#gameWon,#reset{
+margin:0 auto;
+}
+
+
+body{
+    background-color:black;
+}
+h1{
+    
+        font-size: 8em;
+        font-family: impact;
+        display: block;
+        margin-bottom:-15px;
+}   
+h4{
+    color:white;
+    font-size: 3em;
+    font-family: impact;
+    display: block;
+    margin-bottom:30px;
+}
+h1,#guesses,#lives,#score,#gameOver,#gameWon,#reset{
+color:red;
+}
+#guesses{
+    color:white;
+}
+#underscore{
+    color:white;
+    letter-spacing:15px;
+    font-size:40px;
+    margin-bottom: 20px;
+}
+#guesses{
+    margin-bottom: 20px;
+}
+#lives{
+    margin-bottom: 30px;
+}
+#score{
+    margin-bottom: 30px;
+    color:black;
+    text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
+
+}
+#gameOver{
+    margin-bottom:30px;
+}
+
+body{
+    background-image: url("../images/netflix.jpg");
+}
+#content{
+    background-color:black;
+    opacity:0.84;
+}
+.container{
+    margin-top:2.5%;
+}
